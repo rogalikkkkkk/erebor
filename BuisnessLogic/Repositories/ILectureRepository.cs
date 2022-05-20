@@ -7,7 +7,7 @@ using BuisnessLogic.Models;
 
 namespace BuisnessLogic.Repositories
 {
-    internal interface ILectureRepository: CrudRepository<Lecture>
+    internal interface ILectureRepository : CrudRepository<Lecture>
     {
         public Lecture getByTitle(string title);
     }

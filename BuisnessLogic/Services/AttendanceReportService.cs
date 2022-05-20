@@ -27,13 +27,8 @@ namespace BuisnessLogic.Services
             var attendances = attendanceRepository.getAllByLecture(lecture);
             var report = from a in attendances
                          select new ReportEntity<Student> { Entity = a.Student, Attanded = a.Attended, Grade = a.Grade };
-            Report<Student> result = new Report<Student>();
-            foreach (var r in report)
-            {
-                result.Data.Add(r);
-            }
 
-            return result;
+            return new Report<Student> { Data = report.ToList() };
         }
 
         public Report<Lecture> generateReportByStudent(string name)
@@ -43,13 +38,8 @@ namespace BuisnessLogic.Services
 
             var report = from a in attendances
                          select new ReportEntity<Lecture> { Entity = a.Lecture, Attanded = a.Attended, Grade = a.Grade };
-            Report<Lecture> result = new Report<Lecture>();
-            foreach (var r in report)
-            {
-                result.Data.Add(r);
-            }
 
-            return result;
+            return new Report<Lecture> { Data = report.ToList()};
         }
     }
 }

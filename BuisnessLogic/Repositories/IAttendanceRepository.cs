@@ -7,7 +7,7 @@ using BuisnessLogic.Models;
 
 namespace BuisnessLogic.Repositories
 {
-    internal interface IAttendanceRepository: CrudRepository<Attendance>
+    internal interface IAttendanceRepository : CrudRepository<Attendance>
     {
         public List<Attendance> getAllByStudent(Student student);
         public List<Attendance> getAllByLecture(Lecture lecture);

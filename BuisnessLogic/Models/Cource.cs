@@ -10,5 +10,5 @@ public class Cource
 {
     public int Id { get; set; }
     public string Title { get; set; } = null!;
-    public int LectorId { get; set; } 
+    public Lector Lector { get; set; } 
 }

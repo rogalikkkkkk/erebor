@@ -9,7 +9,8 @@ public class ApplicationDBContext : DbContext
     public DbSet<Lector> Lectors { get; set; }
     public DbSet<Lecture> Lectures { get; set; }
     public DbSet<Student> Students { get; set; }
-    
+    public DbSet<Cource> Cources { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=erebor_db;Username=soso;Password=soso");

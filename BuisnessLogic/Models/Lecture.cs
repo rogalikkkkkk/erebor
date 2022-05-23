@@ -11,6 +11,6 @@ namespace BuisnessLogic.Models
         public int Id { get; set; }
         public string Title { get; set; } = null!;
         public DateTime Date { get; set; }
-        public int CourseId { get; set; }
+        public Cource Course { get; set; }
     }
 }

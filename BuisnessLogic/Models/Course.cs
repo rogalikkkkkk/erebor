@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BuisnessLogic.Models;
 
-public class Cource
+public class Course
 {
     public int Id { get; set; }
     public string Title { get; set; } = null!;

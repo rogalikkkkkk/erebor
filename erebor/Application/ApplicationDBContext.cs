@@ -9,7 +9,7 @@ public class ApplicationDBContext : DbContext
     public DbSet<Lector> Lectors { get; set; }
     public DbSet<Lecture> Lectures { get; set; }
     public DbSet<Student> Students { get; set; }
-    public DbSet<Cource> Cources { get; set; }
+    public DbSet<Course> Cources { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

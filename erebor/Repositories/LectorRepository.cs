@@ -1,8 +1,8 @@
 ﻿using BuisnessLogic.Models;
 using BuisnessLogic.Repositories;
-using Erebor.Application;
+using WebErebor.Application;
 
-namespace Erebor.Repositories;
+namespace WebErebor.Repositories;
 
 public class LectorRepository : ILectorRepository
 {

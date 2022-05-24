@@ -1,21 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using WebErebor.Application;
 using WebErebor.Models;
+using BuisnessLogic.Repositories;
+using BuisnessLogic.Models;
 
 namespace WebErebor.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IStudentRepository studentRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IStudentRepository studentRepository)
         {
-            _logger = logger;
+            this.studentRepository = studentRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var students = studentRepository.GetAll();
+            return View(students);
         }
 
         public IActionResult Privacy()

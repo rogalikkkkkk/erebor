@@ -1,9 +1,9 @@
 ﻿using BuisnessLogic.Models;
 using BuisnessLogic.Repositories;
-using Erebor.Application;
-using Erebor.Repositories;
+using WebErebor.Application;
+using WebErebor.Repositories;
 
-namespace Erebor
+namespace WebErebor
 {
     internal class Programm
     {

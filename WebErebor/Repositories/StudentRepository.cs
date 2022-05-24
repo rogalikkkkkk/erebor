@@ -1,13 +1,18 @@
 ﻿using BuisnessLogic.Models;
 using BuisnessLogic.Repositories;
-using WebErebor.Application;
 using Microsoft.EntityFrameworkCore;
+using WebErebor.Application;
 
 namespace WebErebor.Repositories;
 
 public class StudentRepository : IStudentRepository
 {
-    private readonly ApplicationDBContext _db = new();
+    private readonly ApplicationDBContext _db;
+
+    public StudentRepository(ApplicationDBContext db)
+    {
+        _db = db;
+    }
 
     public List<Student> GetAll()
     {

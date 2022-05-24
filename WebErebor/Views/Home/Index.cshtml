@@ -1,8 +1,44 @@
-﻿@{
+﻿@using BuisnessLogic.Models
+@model List<Student>;
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Студенты</h1>
+    <table class="table mt-4">
+  <thead class="thead-dark bg-primary text-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Возраст</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Номер телефона</th>
+      <th scope="col"></th>
+       <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+      @foreach(var student in Model){
+       <tr>
+      <th scope="row">@student.Id</th>
+      <td>@student.Name</td>
+      <td>@student.Surname</td>
+      <td>@student.Age</td>
+      <td>@student.Email</td>
+      <td>@student.PhoneNumber</td>
+      <td>@Html.ActionLink("Изменить", "Edit", student)</td>
+       <td>@Html.ActionLink("Удалить", "Delete", student)</td>
+
+    </tr>
+      }
+  </tbody>
+</table>
+
+<div class="band-list text-light">
+    <a class="btn btn-outline-primary" asp-action="Create">Добавить нового студента</a>
+ </div>
+
 </div>

@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Erebor.Migrations
+namespace WebErebor.Migrations
 {
     /// <inheritdoc />
     public partial class UpdateModels : Migration

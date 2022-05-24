@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Erebor.Migrations
+namespace WebErebor.Migrations
 {
     /// <inheritdoc />
     public partial class UpdateModels2 : Migration

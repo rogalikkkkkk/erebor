@@ -11,6 +11,11 @@ public class ApplicationDBContext : DbContext
     public DbSet<Student> Students { get; set; }
     public DbSet<Course> Cources { get; set; }
 
+    public ApplicationDBContext()
+    {
+        Database.EnsureCreated();
+        //TODO: Заполнить бд начальными данными
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=erebor_db;Username=soso;Password=soso");

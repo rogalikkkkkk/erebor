@@ -4,10 +4,10 @@ using Erebor.Application;
 
 namespace Erebor.Repositories;
 
-public class LectureRepository: ILectureRepository
+public class LectureRepository : ILectureRepository
 {
     private readonly ApplicationDBContext _db = new();
-    
+
     public List<Lecture> GetAll()
     {
         var lecturesList = _db.Lectures.ToList();
@@ -15,6 +15,7 @@ public class LectureRepository: ILectureRepository
         {
             lecture.Course = null;
         }
+
         return lecturesList;
     }
 
@@ -32,16 +33,9 @@ public class LectureRepository: ILectureRepository
 
     public Lecture Save(Lecture entity)
     {
-        if (_db.Lectures.Contains(entity))
-        {
-            _db.Update(entity);
-            _db.SaveChanges();
-            return _db.Lectures.First(l => l.Id == entity.Id);
-        }
-
-        _db.Add(entity);
+        var lecture = _db.Update(entity);
         _db.SaveChanges();
-        return _db.Lectures.First(l => l.Id == entity.Id);
+        return lecture.Entity;
     }
 
     public void Delete(Lecture entity)

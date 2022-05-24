@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Erebor.Repositories;
 
-public class StudentRepository: IStudentRepository
+public class StudentRepository : IStudentRepository
 {
     private readonly ApplicationDBContext _db = new();
-    
+
     public List<Student> GetAll()
     {
         return _db.Students.ToList();
@@ -27,16 +27,9 @@ public class StudentRepository: IStudentRepository
 
     public Student Save(Student entity)
     {
-        if (!_db.Students.Contains(entity))
-        {
-            _db.Update(entity);
-            _db.SaveChanges();
-            return _db.Students.First(s => s.Id == entity.Id);
-        }
-
-        _db.Add(entity);
+        var student = _db.Update(entity);
         _db.SaveChanges();
-        return _db.Students.First(s => s.Id == entity.Id);
+        return student.Entity;
     }
 
     public void Delete(Student entity)
@@ -53,7 +46,6 @@ public class StudentRepository: IStudentRepository
         {
             throw new Exception("По данному имени не было найдено записей в таблице студентов");
         }
-
         return student;
     }
 }

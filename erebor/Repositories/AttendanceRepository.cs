@@ -4,7 +4,7 @@ using Erebor.Application;
 
 namespace Erebor.Repositories;
 
-public class AttendanceRepository: IAttendanceRepository
+public class AttendanceRepository : IAttendanceRepository
 {
     private readonly ApplicationDBContext _db = new();
 
@@ -16,6 +16,7 @@ public class AttendanceRepository: IAttendanceRepository
             attendance.Lecture = null;
             attendance.Student = null;
         }
+
         return attendanceList;
     }
 
@@ -26,6 +27,7 @@ public class AttendanceRepository: IAttendanceRepository
         {
             throw new Exception("По данному ID не было найдено записей в таблице посещений");
         }
+
         attendance.Lecture = null;
         attendance.Student = null;
         return attendance;
@@ -33,16 +35,9 @@ public class AttendanceRepository: IAttendanceRepository
 
     public Attendance Save(Attendance entity)
     {
-        if (_db.Attendances.Contains(entity))
-        {
-            _db.Update(entity);
-            _db.SaveChanges();
-            return _db.Attendances.First(a => a.Id == entity.Id);
-        }
-
-        _db.Add(entity);
+        var attendance = _db.Update(entity);
         _db.SaveChanges();
-        return _db.Attendances.First(a => a.Id == entity.Id);
+        return attendance.Entity;
     }
 
     public void Delete(Attendance entity)
@@ -60,6 +55,7 @@ public class AttendanceRepository: IAttendanceRepository
             attendance.Lecture = null;
             attendance.Student = null;
         }
+
         return attendanceList;
     }
 
@@ -71,6 +67,7 @@ public class AttendanceRepository: IAttendanceRepository
             attendance.Lecture = null;
             attendance.Student = null;
         }
+
         return attendanceList;
     }
 }

@@ -1,59 +1,64 @@
-﻿//using BuisnessLogic.Models;
-//using BuisnessLogic.Repositories;
-//using Erebor.Application;
+﻿using BuisnessLogic.Models;
+using BuisnessLogic.Repositories;
+using WebErebor.Application;
 
-//namespace Erebor.Repositories;
+namespace WebErebor.Repositories;
 
-//public class LectureRepository : ILectureRepository
-//{
-//    private readonly ApplicationDBContext _db = new();
+public class LectureRepository : ILectureRepository
+{
+    private readonly ApplicationDBContext _db;
 
-//    public List<Lecture> GetAll()
-//    {
-//        var lecturesList = _db.Lectures.ToList();
-//        foreach (var lecture in lecturesList)
-//        {
-//            lecture.Course = null;
-//        }
+    public LectureRepository(ApplicationDBContext db)
+    {
+        _db = db;
+    }
 
-//        return lecturesList;
-//    }
+    public List<Lecture> GetAll()
+    {
+        var lecturesList = _db.Lectures.ToList();
+        foreach (var lecture in lecturesList)
+        {
+            lecture.Course = null;
+        }
 
-//    public Lecture GetById(int id)
-//    {
-//        var lecture = _db.Lectures.FirstOrDefault(l => l.Id == id);
-//        if (lecture == null)
-//        {
-//            throw new Exception("По данному ID не было найдено записей в таблице лекций");
-//        }
+        return lecturesList;
+    }
 
-//        lecture.Course = null;
-//        return lecture;
-//    }
+    public Lecture GetById(int id)
+    {
+        var lecture = _db.Lectures.FirstOrDefault(l => l.Id == id);
+        if (lecture == null)
+        {
+            throw new Exception("По данному ID не было найдено записей в таблице лекций");
+        }
 
-//    public Lecture Save(Lecture entity)
-//    {
-//        var lecture = _db.Update(entity);
-//        _db.SaveChanges();
-//        return lecture.Entity;
-//    }
+        lecture.Course = null;
+        return lecture;
+    }
 
-//    public void Delete(Lecture entity)
-//    {
-//        if (!_db.Lectures.Contains(entity)) return;
-//        _db.Remove(entity);
-//        _db.SaveChanges();
-//    }
+    public Lecture Save(Lecture entity)
+    {
+        var lecture = _db.Update(entity);
+        _db.SaveChanges();
+        return lecture.Entity;
+    }
 
-//    public Lecture getByTitle(string title)
-//    {
-//        var lecture = _db.Lectures.FirstOrDefault(l => l.Title == title);
-//        if (lecture == null)
-//        {
-//            throw new Exception("По данному названию не было найдено записей в таблице лекций");
-//        }
+    public void Delete(Lecture entity)
+    {
+        if (!_db.Lectures.Contains(entity)) return;
+        _db.Remove(entity);
+        _db.SaveChanges();
+    }
 
-//        lecture.Course = null;
-//        return lecture;
-//    }
-//}
+    public Lecture getByTitle(string title)
+    {
+        var lecture = _db.Lectures.FirstOrDefault(l => l.Title == title);
+        if (lecture == null)
+        {
+            throw new Exception("По данному названию не было найдено записей в таблице лекций");
+        }
+
+        lecture.Course = null;
+        return lecture;
+    }
+}

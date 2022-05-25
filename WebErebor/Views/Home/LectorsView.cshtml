@@ -1,5 +1,4 @@
 ﻿@using BuisnessLogic.Models
-@model List<Student>;
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -22,17 +21,17 @@
     </tr>
   </thead>
   <tbody>
-      @foreach(var student in Model){
+      @*@foreach(var student in Model){*@
        <tr>
-      <th scope="row">@student.Id</th>
-      <td>@student.Name</td>
-      <td>@student.Surname</td>
-      <td>@student.Age</td>
-      <td>@student.Email</td>
-      <td>@student.PhoneNumber</td>
-      <td>@Html.ActionLink("Изменить", "StudentEdit", student)</td>
+      <th </th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      @*<td>@Html.ActionLink("Изменить", "StudentEdit", student)</td>
        <td>@Html.ActionLink("Удалить", "StudentDelete", student)</td>
-       <td>@Html.ActionLink("Отчет", "StudentDelete", student)</td>
+       <td>@Html.ActionLink("Отчет", "StudentDelete", student)</td>*@
 
     </tr>
       }

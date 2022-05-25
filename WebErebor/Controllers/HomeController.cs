@@ -43,6 +43,13 @@ namespace WebErebor.Controllers
             return View("StudentCreate", student);
         }
 
+        [HttpGet]
+        public IActionResult StudentDelete(Student student)
+        {
+            studentRepository.Delete(student);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();

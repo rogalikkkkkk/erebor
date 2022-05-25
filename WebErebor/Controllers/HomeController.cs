@@ -57,7 +57,7 @@ namespace WebErebor.Controllers
         }
 
         [HttpGet]
-        public IActionResult getReport(string name)
+        public IActionResult GetReport(string name)
         {
             Report<Lecture> report = attendanceReportService.generateReportByStudent(name);
 

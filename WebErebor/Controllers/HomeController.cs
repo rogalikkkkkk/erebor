@@ -22,6 +22,27 @@ namespace WebErebor.Controllers
             return View(students);
         }
 
+        public IActionResult StudentCreate()
+        {
+            Student student = new Student();
+            
+            return View("StudentCreate", student);
+        }
+
+        [HttpPost]
+        public IActionResult StudentCreate(Student student)
+        {
+            studentRepository.Save(student);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult StudentEdit(Student student)
+        {
+            return View("StudentCreate", student);
+        }
+
         public IActionResult Privacy()
         {
             return View();

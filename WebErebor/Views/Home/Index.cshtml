@@ -29,7 +29,7 @@
       <td>@student.Age</td>
       <td>@student.Email</td>
       <td>@student.PhoneNumber</td>
-      <td>@Html.ActionLink("Изменить", "Edit", student)</td>
+      <td>@Html.ActionLink("Изменить", "StudentEdit", student)</td>
        <td>@Html.ActionLink("Удалить", "Delete", student)</td>
 
     </tr>
@@ -38,7 +38,7 @@
 </table>
 
 <div class="band-list text-light">
-    <a class="btn btn-outline-primary" asp-action="Create">Добавить нового студента</a>
+    <a class="btn btn-outline-primary" asp-action="StudentCreate">Добавить нового студента</a>
  </div>
 
 </div>

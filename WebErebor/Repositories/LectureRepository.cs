@@ -12,6 +12,7 @@ public class LectureRepository : ILectureRepository
     {
         _db = db;
     }
+
     public List<Lecture> GetAll()
     {
         var lecturesList = _db.Lectures.ToList();

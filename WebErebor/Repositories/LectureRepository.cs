@@ -15,13 +15,7 @@ public class LectureRepository : ILectureRepository
 
     public List<Lecture> GetAll()
     {
-        var lecturesList = _db.Lectures.ToList();
-        foreach (var lecture in lecturesList)
-        {
-            lecture.Course = null;
-        }
-
-        return lecturesList;
+        return _db.Lectures.ToList();
     }
 
     public Lecture GetById(int id)
@@ -31,13 +25,12 @@ public class LectureRepository : ILectureRepository
         {
             throw new Exception("По данному ID не было найдено записей в таблице лекций");
         }
-
-        lecture.Course = null;
         return lecture;
     }
 
     public Lecture Save(Lecture entity)
     {
+        entity.Course = _db.Cources.First(c => c.Id == entity.Course.Id);
         var lecture = _db.Update(entity);
         _db.SaveChanges();
         return lecture.Entity;
@@ -58,7 +51,6 @@ public class LectureRepository : ILectureRepository
             throw new Exception("По данному названию не было найдено записей в таблице лекций");
         }
 
-        lecture.Course = null;
         return lecture;
     }
 }

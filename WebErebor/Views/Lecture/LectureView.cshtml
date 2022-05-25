@@ -24,8 +24,8 @@
       <th scope="row">@lecture.Id</th>
       <td>@lecture.Title</td>
       <td>@lecture.Date</td>
-      <td>@Html.ActionLink("Изменить", "StudentEdit", lecture)</td>
-       <td>@Html.ActionLink("Удалить", "StudentDelete", lecture)</td>
+      <td>@Html.ActionLink("Изменить", "LectureEdit", "Lecture", new { id = lecture.Id},null)</td>
+       <td>@Html.ActionLink("Удалить", "LectureDelete", lecture)</td>
        <td>@Html.ActionLink("Отчет", "StudentDelete", lecture, new { @class = "btn-primary p-2 rounded"})</td>
 
     </tr>
@@ -34,7 +34,7 @@
 </table>
 
 <div class="band-list text-light">
-    <a class="btn btn-outline-primary" asp-action="StudentCreate">Добавить новую лекцию</a>
+    <a class="btn btn-outline-primary" asp-action="LectureCreate">Добавить новую лекцию</a>
  </div>
 
 </div>

@@ -1,0 +1,42 @@
+﻿@using BuisnessLogic.Models
+@model Lecture;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Лекция</h1>
+    @using (Html.BeginForm("LectureCreate", "Lecture", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="row g-3 align-items-center p-4">
+        <div class="col-3 "></div>
+            <div class="col-2 ">
+                <label for="inputName" class="col-form-label">Название</label>
+            </div>
+            <div class="col-3">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @required  = "required"})
+            </div>
+    </div>
+    <div class="row g-3 align-items-center p-4">
+        <div class="col-3 "></div>
+            <div class="col-2 ">
+                <label for="inputDate" class="col-form-label">Дата</label>
+            </div>
+            <div class="col-3">
+                @Html.TextBoxFor(m => m.Date, new { @class = "form-control", @required  = "required", @type="date"})
+            </div>
+    </div>
+    <div class="row g-3 align-items-center p-4">
+        <div class="col-3 "></div>
+            <div class="col-2 ">
+                <label for="inputCourse" class="col-form-label">Название курса</label>
+            </div>
+            <div class="col-3">
+                @Html.DropDownListFor(m => m.Course.Id, ViewBag.Course as SelectList, new {@class = "form-select"})
+            </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    }
+
+</div>

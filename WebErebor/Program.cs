@@ -10,8 +10,12 @@ builder.Services.AddDbContext<ApplicationDBContext>();
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ILectureRepository, LectureRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 var app = builder.Build();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

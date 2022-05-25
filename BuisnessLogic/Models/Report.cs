@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BuisnessLogic.Models
 {
-    internal class Report<T>
+    public class Report<T>
     {
         public List<ReportEntity<T>> Data { get; set; }
     }

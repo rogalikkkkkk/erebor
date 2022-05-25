@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BuisnessLogic.Observer
 {
-    internal interface IAttendanceSubscriber
+    public interface IAttendanceSubscriber
     {
         public void NotifyBySms(Student student, Course course);
         public void NotifyByEmail(Student student, Lector lector, Course course);

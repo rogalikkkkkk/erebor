@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BuisnessLogic.Models
 {
-    internal class ReportEntity<T>
+    public class ReportEntity<T>
     {
         public T Entity { get; set; }
         public bool Attanded { get; set; }

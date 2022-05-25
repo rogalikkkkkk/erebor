@@ -8,7 +8,7 @@ using BuisnessLogic.Repositories;
 
 namespace BuisnessLogic.Services
 {
-    internal class AttendanceReportService
+    public class AttendanceReportService
     {
         private readonly IAttendanceRepository attendanceRepository;
         private readonly ILectureRepository lectureRepository;

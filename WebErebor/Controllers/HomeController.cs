@@ -4,16 +4,22 @@ using WebErebor.Application;
 using WebErebor.Models;
 using BuisnessLogic.Repositories;
 using BuisnessLogic.Models;
+using BuisnessLogic.Services;
+using Newtonsoft.Json;
+using System.Xml.Serialization;
+using System.Text;
 
 namespace WebErebor.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IStudentRepository studentRepository;
+        private readonly AttendanceReportService attendanceReportService;
 
-        public HomeController(IStudentRepository studentRepository)
+        public HomeController(IStudentRepository studentRepository, AttendanceReportService attendanceReportService)
         {
             this.studentRepository = studentRepository;
+            this.attendanceReportService = attendanceReportService;
         }
 
         public IActionResult Index()
@@ -25,7 +31,7 @@ namespace WebErebor.Controllers
         public IActionResult StudentCreate()
         {
             Student student = new Student();
-            
+
             return View("StudentCreate", student);
         }
 
@@ -48,6 +54,34 @@ namespace WebErebor.Controllers
         {
             studentRepository.Delete(student);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult getReport(string name)
+        {
+            Report<Lecture> report = attendanceReportService.generateReportByStudent(name);
+
+            Random random = new Random();
+            string reportSerialize;
+
+            if (random.Next(0, 2) == 0)
+            {
+                reportSerialize = JsonConvert.SerializeObject(report, Formatting.Indented);   
+            }
+            else
+            {
+                XmlSerializer xml = new XmlSerializer(typeof(Report<Lecture>));
+
+                using (StringWriter textWriter = new StringWriter())
+                {
+                    xml.Serialize(textWriter, report);
+                    reportSerialize = textWriter.ToString();
+                }
+            }
+            var reportFile = new FileContentResult(Encoding.Default.GetBytes(reportSerialize), "application/octet-stream");
+
+            reportFile.FileDownloadName = "report.txt";
+            return reportFile;
         }
 
         public IActionResult Privacy()

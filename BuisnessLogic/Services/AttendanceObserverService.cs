@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BuisnessLogic.Observer
 {
-    internal class AttendanceObserverService
+    public class AttendanceObserverService
     {
         private IAttendanceRepository attendanceRepository;
         private IAttendanceSubscriber attendanceSubscriber;

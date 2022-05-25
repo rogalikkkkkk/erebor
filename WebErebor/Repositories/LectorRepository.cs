@@ -1,40 +1,45 @@
-﻿//using BuisnessLogic.Models;
-//using BuisnessLogic.Repositories;
-//using Erebor.Application;
+﻿using BuisnessLogic.Models;
+using BuisnessLogic.Repositories;
+using WebErebor.Application;
 
-//namespace Erebor.Repositories;
+namespace WebErebor.Repositories;
 
-//public class LectorRepository : ILectorRepository
-//{
-//    private readonly ApplicationDBContext _db = new();
+public class LectorRepository : ILectorRepository
+{
+    private readonly ApplicationDBContext _db;
 
-//    public List<Lector> GetAll()
-//    {
-//        return _db.Lectors.ToList();
-//    }
+    public LectorRepository(ApplicationDBContext db)
+    {
+        _db = db;
+    }
 
-//    public Lector GetById(int id)
-//    {
-//        var lector = _db.Lectors.FirstOrDefault(l => l.Id == id);
-//        if (lector == null)
-//        {
-//            throw new Exception("По данному ID не было найдено записей в таблице лекторов");
-//        }
+    public List<Lector> GetAll()
+    {
+        return _db.Lectors.ToList();
+    }
 
-//        return _db.Lectors.First(l => l.Id == id);
-//    }
+    public Lector GetById(int id)
+    {
+        var lector = _db.Lectors.FirstOrDefault(l => l.Id == id);
+        if (lector == null)
+        {
+            throw new Exception("По данному ID не было найдено записей в таблице лекторов");
+        }
 
-//    public Lector Save(Lector entity)
-//    {
-//        _db.Update(entity);
-//        _db.SaveChanges();
-//        return _db.Lectors.First(l => l.Id == entity.Id);
-//    }
+        return _db.Lectors.First(l => l.Id == id);
+    }
 
-//    public void Delete(Lector entity)
-//    {
-//        if (!_db.Lectors.Contains(entity)) return;
-//        _db.Remove(entity);
-//        _db.SaveChanges();
-//    }
-//}
+    public Lector Save(Lector entity)
+    {
+        _db.Update(entity);
+        _db.SaveChanges();
+        return _db.Lectors.First(l => l.Id == entity.Id);
+    }
+
+    public void Delete(Lector entity)
+    {
+        if (!_db.Lectors.Contains(entity)) return;
+        _db.Remove(entity);
+        _db.SaveChanges();
+    }
+}

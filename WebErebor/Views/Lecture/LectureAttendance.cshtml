@@ -1,0 +1,39 @@
+﻿@using Erebor.Models
+@model List<Attendance>;
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+	@using (Html.BeginForm("AttendanceCreate", "Lecture", FormMethod.Post))
+	{
+		<h1 class="display-4">Посещения</h1>
+
+		<table class="table mt-4">
+			<thead class="thead-dark  text-light">
+				<tr>
+					<th scope="col">Студент</th>
+					<th scope="col">Присутствие</th>
+					<th scope="col">Оценка</th>
+				</tr>
+			</thead>
+			<tbody>
+				@for (int i = 0; i < Model.Count; i++)
+				{
+					<tr>
+						<td>@Model[i].Student!.Name</td>
+						<td>@Html.CheckBoxFor(m => m[i].Attended)</td>
+						<td>@Html.TextBoxFor(m => m[i].Grade, new { @class = "form-control", @required  = "required" })</td>
+						@Html.HiddenFor(m => m[i].Id)
+						@Html.HiddenFor(m => m[i].StudentId)
+						@Html.HiddenFor(m => m[i].LectureId)
+					</tr>
+				}
+			</tbody>
+		</table>
+
+		<div class="band-list text-light">
+			<button type="submit" class="btn btn btn-outline-primary">Сохранить</button>
+		</div>
+	}
+</div>

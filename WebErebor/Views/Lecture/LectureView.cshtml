@@ -1,0 +1,64 @@
+﻿@using Erebor.Models
+@using Erebor.Serializers
+@model List<Lecture>;
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Лекции</h1>
+	<table class="table mt-4">
+		<thead class="thead-dark bg-primary text-light">
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Название</th>
+				<th scope="col">Дата</th>
+				<th scope="col"></th>
+				<th scope="col"></th>
+				<th scope="col"></th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var lecture in Model)
+			{
+				<tr>
+					<th scope="row">@lecture.Id</th>
+					<td>@lecture.Title</td>
+					<td>@lecture.Date</td>
+					<td>@Html.ActionLink("Изменить", "LectureEdit", "Lecture", new { id = lecture.Id}, null)</td>
+					<td>@Html.ActionLink("Удалить", "LectureDelete", lecture)</td>
+					<td>@Html.ActionLink("Отметить посещения", "LectureAttendance", lecture)</td>
+					<td>
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#report-@lecture.Id">Отчёт</button>
+
+						<div class="modal fade" id="report-@lecture.Id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="staticBackdropLabel">Выберете тип отчёта</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Выберете тип отчеёта чтобы его скачать:
+									</div>
+									<div class="modal-footer">
+										@Html.ActionLink("Json", "GetReport", new { title = lecture.Title, format = Format.Json }, new { @class = "btn btn-primary p-2"})
+										@Html.ActionLink("XML", "GetReport", new { title = lecture.Title, format = Format.XML }, new { @class = "btn btn-primary p-2"})
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	<div class="band-list text-light">
+		<a class="btn btn-outline-primary" asp-action="LectureCreate">Добавить новую лекцию</a>
+	</div>
+
+</div>
+
+

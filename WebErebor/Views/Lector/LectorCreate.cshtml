@@ -1,0 +1,56 @@
+﻿@using Erebor.Models
+@model Lector;
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+	<h1 class="display-4">Преподаватель</h1>
+	@using (Html.BeginForm("LectorCreate", "Lector", FormMethod.Post))
+	{
+		@Html.HiddenFor(m => m.Id)
+
+		<div class="row g-3 align-items-center p-4">
+			<div class="col-3 "></div>
+			<div class="col-2 ">
+				<label for="inputName" class="col-form-label">Имя</label>
+			</div>
+			<div class="col-3">
+				@Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required  = "required"})
+			</div>
+		</div>
+
+		<div class="row g-3 align-items-center p-4">
+			<div class="col-3 "></div>
+			<div class="col-2 ">
+				<label for="inputSurname" class="col-form-label">Фамилия</label>
+			</div>
+			<div class="col-3">
+				@Html.TextBoxFor(m => m.Surname, new { @class = "form-control", @required  = "required"})
+			</div>
+		</div>
+
+		<div class="row g-3 align-items-center p-4">
+			<div class="col-3 "></div>
+			<div class="col-2 ">
+				<label for="inputSalary" class="col-form-label">Зарплата</label>
+			</div>
+			<div class="col-3">
+				@Html.TextBoxFor(m => m.Salary, new { @class = "form-control", @type="number", @required  = "required"})
+			</div>
+		</div>
+
+		<div class="row g-3 align-items-center p-4">
+			<div class="col-3 "></div>
+			<div class="col-2 ">
+				<label for="inputEmail" class="col-form-label">E-mail</label>
+			</div>
+			<div class="col-3">
+				@Html.TextBoxFor(m => m.Email, new { @class = "form-control",  @type="email", @required  = "required"})
+			</div>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Сохранить</button>
+	}
+
+</div>

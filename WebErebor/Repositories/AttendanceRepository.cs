@@ -15,14 +15,7 @@ public class AttendanceRepository : IAttendanceRepository
 
     public List<Attendance> GetAll()
     {
-        var attendanceList = _db.Attendances.ToList();
-        foreach (var attendance in attendanceList)
-        {
-            attendance.Lecture = null;
-            attendance.Student = null;
-        }
-
-        return attendanceList;
+        return _db.Attendances.ToList();
     }
 
     public Attendance GetById(int id)
@@ -33,8 +26,6 @@ public class AttendanceRepository : IAttendanceRepository
             throw new Exception("По данному ID не было найдено записей в таблице посещений");
         }
 
-        attendance.Lecture = null;
-        attendance.Student = null;
         return attendance;
     }
 
@@ -54,25 +45,11 @@ public class AttendanceRepository : IAttendanceRepository
 
     public List<Attendance> getAllByStudent(Student student)
     {
-        var attendanceList = _db.Attendances.Where(a => a.Student.Id == student.Id).ToList();
-        foreach (var attendance in attendanceList)
-        {
-            attendance.Lecture = null;
-            attendance.Student = null;
-        }
-
-        return attendanceList;
+        return _db.Attendances.Where(a => a.Student.Id == student.Id).ToList();
     }
 
     public List<Attendance> getAllByLecture(Lecture lecture)
     {
-        var attendanceList = _db.Attendances.Where(a => a.Lecture.Id == lecture.Id).ToList();
-        foreach (var attendance in attendanceList)
-        {
-            attendance.Lecture = null;
-            attendance.Student = null;
-        }
-
-        return attendanceList;
+        return _db.Attendances.Where(a => a.Lecture.Id == lecture.Id).ToList();
     }
 }

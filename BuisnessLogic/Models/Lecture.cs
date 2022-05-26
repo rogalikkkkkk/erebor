@@ -9,7 +9,7 @@ namespace BuisnessLogic.Models
         public string Title { get; set; } = null!;
         public DateTime Date { get; set; }
 
-        [ForeignKey("Cources")]
+        [ForeignKey("Courses")]
         public int CourseId { get; set; }
         public Course? Course { get; set; }
     }

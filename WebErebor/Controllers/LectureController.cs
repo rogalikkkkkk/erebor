@@ -99,18 +99,19 @@ namespace WebErebor.Controllers
             var students = studentRepository.GetAll();
             var attendances = attendanceRepository.getAllByLecture(lecture.Id);
 
-            if (students.Count != attendances.Count)
+            if (students.Count == attendances.Count) return View("LectureAttendance", attendances);
+            foreach (var student in students)
             {
-                foreach (var student in students)
+                if (attendances.FirstOrDefault(a => a.StudentId == student.Id) != null) continue;
+                
+                var attendance = new Attendance
                 {
-                    if (attendances.FirstOrDefault(a => a.StudentId == student.Id) == null)
-                    {
-                        var attendance = new Attendance();
-                        attendance.Student = student;
-                        attendance.Lecture = lecture;
-                        attendances.Add(attendance);
-                    }
-                }
+                    StudentId = student.Id,
+                    Student = student,
+                    LectureId = lecture.Id
+                };
+                
+                attendances.Add(attendance);
             }
 
             return View("LectureAttendance", attendances);

@@ -7,9 +7,9 @@ namespace WebErebor.Repositories;
 
 public class StudentRepository : IStudentRepository
 {
-    private readonly ApplicationDBContext _db;
+    private readonly ApplicationDbContext _db;
 
-    public StudentRepository(ApplicationDBContext db)
+    public StudentRepository(ApplicationDbContext db)
     {
         _db = db;
     }

@@ -4,7 +4,7 @@ using WebErebor.Application;
 
 namespace WebErebor.Repositories;
 
-public class CourseRepository: ICourseRepository
+public class CourseRepository : ICourseRepository
 {
     private readonly ApplicationDBContext _db;
 
@@ -16,13 +16,7 @@ public class CourseRepository: ICourseRepository
 
     public List<Course> GetAll()
     {
-        var coursesList = _db.Cources.ToList();
-        foreach (var course in coursesList)
-        {
-            course.Lector = null;
-        }
-
-        return coursesList;
+        return _db.Cources.ToList();
     }
 
     public Course GetById(int id)
@@ -33,7 +27,6 @@ public class CourseRepository: ICourseRepository
             throw new Exception("По данному ID не было найдено записей в таблице курсов");
         }
 
-        course.Lector = null;
         return course;
     }
 

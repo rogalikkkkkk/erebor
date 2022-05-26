@@ -15,6 +15,7 @@
       <th scope="col"></th>
        <th scope="col"></th>
        <th scope="col"></th>
+       <th scope="col"></th>
 
     </tr>
   </thead>
@@ -26,6 +27,7 @@
       <td>@lecture.Date</td>
       <td>@Html.ActionLink("Изменить", "LectureEdit", "Lecture", new { id = lecture.Id},null)</td>
        <td>@Html.ActionLink("Удалить", "LectureDelete", lecture)</td>
+        <td>@Html.ActionLink("Отметить посещения", "LectureDelete", lecture)</td>
        <td>@Html.ActionLink("Отчет", "GetReport", new { title = lecture.Title }, new { @class = "btn-primary p-2 rounded"})</td>
 
     </tr>

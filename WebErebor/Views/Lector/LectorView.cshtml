@@ -1,0 +1,43 @@
+﻿@using BuisnessLogic.Models
+@model List<Lector>;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Преподаватели</h1>
+    <table class="table mt-4">
+  <thead class="thead-dark bg-primary text-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Зарплата</th>
+      <th scope="col">E-mail</th>
+      <th scope="col"></th>
+       <th scope="col"></th>
+       <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+      @foreach(var lector in Model){
+       <tr>
+      <th scope="row">@lector.Id</th>
+      <td>@lector.Name</td>
+      <td>@lector.Surname</td>
+      <td>@lector.Salary</td>
+      <td>@lector.Email</td>
+      <td>@Html.ActionLink("Изменить", "LectorEdit", lector)</td>
+       <td>@Html.ActionLink("Удалить", "LectorDelete", lector)</td>
+
+    </tr>
+      }
+  </tbody>
+</table>
+
+<div class="band-list text-light">
+    <a class="btn btn-outline-primary" asp-action="LectorCreate">Добавить нового преподавателя</a>
+ </div>
+
+</div>

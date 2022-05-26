@@ -13,6 +13,7 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ILectureRepository, LectureRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddScoped<ILectorRepository, LectorRepository>();
 builder.Services.AddScoped<AttendanceReportService, AttendanceReportService>();
 
 var app = builder.Build();

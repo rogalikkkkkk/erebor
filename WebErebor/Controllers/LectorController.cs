@@ -24,15 +24,15 @@ namespace WebErebor.Controllers
 
         public IActionResult LectorCreate()
         {            
-            return View("StudentCreate", new Lector());
+            return View("LectorCreate", new Lector());
         }
 
         [HttpPost]
-        public IActionResult StudentCreate(Lector lector)
+        public IActionResult LectorCreate(Lector lector)
         {
             lectorRepository.Save(lector);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("LectorView");
         }
 
         [HttpGet]

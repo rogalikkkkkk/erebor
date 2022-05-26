@@ -1,12 +1,12 @@
 ﻿@using BuisnessLogic.Models
-@model Student;
+@model Lector;
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Студент</h1>
-    @using (Html.BeginForm("StudentCreate", "Home", FormMethod.Post))
+    <h1 class="display-4">Преподаватель</h1>
+    @using (Html.BeginForm("LectorCreate", "Lector", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.Id)
     <div class="row g-3 align-items-center p-4">
@@ -30,10 +30,10 @@
     <div class="row g-3 align-items-center p-4">
         <div class="col-3 "></div>
             <div class="col-2 ">
-                <label for="inputAge" class="col-form-label">Возраст</label>
+                <label for="inputSalary" class="col-form-label">Зарплата</label>
             </div>
             <div class="col-3">
-                @Html.TextBoxFor(m => m.Age, new { @class = "form-control", @type="number", @required  = "required"})
+                @Html.TextBoxFor(m => m.Salary, new { @class = "form-control", @type="number", @required  = "required"})
             </div>
     </div>
     <div class="row g-3 align-items-center p-4">
@@ -43,14 +43,6 @@
             </div>
             <div class="col-3">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control",  @type="email", @required  = "required"})            </div>
-    </div>
-    <div class="row g-3 align-items-center p-4">
-        <div class="col-3 "></div>
-            <div class="col-2 ">
-                <label for="inputPhone" class="col-form-label">Номер телефона</label>
-            </div>
-            <div class="col-3">
-                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @required  = "required"})            </div>
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
     }

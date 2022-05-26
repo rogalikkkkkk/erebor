@@ -18,10 +18,11 @@ namespace WebErebor.Controllers
         private readonly ICourseRepository courseRepository;
         private readonly AttendanceReportService attendanceReportService;
 
-        public LectureController(ILectureRepository lectureRepository, ICourseRepository courseRepository)
+        public LectureController(ILectureRepository lectureRepository, ICourseRepository courseRepository, AttendanceReportService attendanceReportService)
         {
             this.lectureRepository = lectureRepository;
             this.courseRepository = courseRepository;
+            this.attendanceReportService = attendanceReportService;
         }
 
         public IActionResult LectureView()
@@ -66,7 +67,7 @@ namespace WebErebor.Controllers
             }
             else
             {
-                XmlSerializer xml = new XmlSerializer(typeof(Report<Lecture>));
+                XmlSerializer xml = new XmlSerializer(typeof(Report<Student>));
 
                 using (StringWriter textWriter = new StringWriter())
                 {

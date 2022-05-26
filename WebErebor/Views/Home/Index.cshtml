@@ -32,7 +32,7 @@
       <td>@student.PhoneNumber</td>
       <td>@Html.ActionLink("Изменить", "StudentEdit", student)</td>
        <td>@Html.ActionLink("Удалить", "StudentDelete", student)</td>
-       <td>@Html.ActionLink("Отчет", "getReport", student.Name, new { @class = "btn-primary p-2 rounded"})</td>
+       <td>@Html.ActionLink("Отчет", "GetReport", new { name = student.Name }, new { @class = "btn-primary p-2 rounded"})</td>
 
     </tr>
       }

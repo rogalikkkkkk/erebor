@@ -1,6 +1,7 @@
 using WebErebor.Application;
 using BuisnessLogic.Repositories;
 using WebErebor.Repositories;
+using BuisnessLogic.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<ApplicationDBContext>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ILectureRepository, LectureRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+builder.Services.AddScoped<AttendanceReportService, AttendanceReportService>();
 
 var app = builder.Build();
 

@@ -5,6 +5,10 @@ using WebErebor.Models;
 using BuisnessLogic.Repositories;
 using BuisnessLogic.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BuisnessLogic.Services;
+using Newtonsoft.Json;
+using System.Xml.Serialization;
+using System.Text;
 
 namespace WebErebor.Controllers
 {
@@ -12,6 +16,7 @@ namespace WebErebor.Controllers
     {
         private readonly ILectureRepository lectureRepository;
         private readonly ICourseRepository courseRepository;
+        private readonly AttendanceReportService attendanceReportService;
 
         public LectureController(ILectureRepository lectureRepository, ICourseRepository courseRepository)
         {
@@ -45,6 +50,34 @@ namespace WebErebor.Controllers
         {
             ViewBag.Course = new SelectList(courseRepository.GetAll(), "Id", "Title");
             return View("LectureCreate", lectureRepository.GetById(id));
+        }
+
+        [HttpGet]
+        public IActionResult GetReport(string title)
+        {
+            Report<Student> report = attendanceReportService.generateReportByLecture(title);
+
+            Random random = new Random();
+            string reportSerialize;
+
+            if (random.Next(0, 2) == 0)
+            {
+                reportSerialize = JsonConvert.SerializeObject(report, Formatting.Indented);
+            }
+            else
+            {
+                XmlSerializer xml = new XmlSerializer(typeof(Report<Lecture>));
+
+                using (StringWriter textWriter = new StringWriter())
+                {
+                    xml.Serialize(textWriter, report);
+                    reportSerialize = textWriter.ToString();
+                }
+            }
+            var reportFile = new FileContentResult(Encoding.Default.GetBytes(reportSerialize), "application/octet-stream");
+
+            reportFile.FileDownloadName = "report.txt";
+            return reportFile;
         }
 
         [HttpGet]

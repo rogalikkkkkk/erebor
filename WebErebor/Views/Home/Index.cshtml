@@ -1,4 +1,5 @@
 ﻿@using BuisnessLogic.Models
+@using WebErebor.Serializers
 @model List<Student>;
 @{
 	ViewData["Title"] = "Home Page";
@@ -32,7 +33,27 @@
 					<td>@student.PhoneNumber</td>
 					<td>@Html.ActionLink("Изменить", "StudentEdit", student)</td>
 					<td>@Html.ActionLink("Удалить", "StudentDelete", student)</td>
-					<td>@Html.ActionLink("Отчет", "GetReport", new { name = student.Name }, new { @class = "btn-primary p-2 m-2 rounded"})</td>
+					<td>
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#report-@student.Id">Отчёт</button>
+
+						<div class="modal fade" id="report-@student.Id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="staticBackdropLabel">Выберете тип отчёта</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Выберете тип отчеёта чтобы его скачать:
+									</div>
+									<div class="modal-footer">
+										@Html.ActionLink("Json", "GetReport", new { name = student.Name, format = Format.Json }, new { @class = "btn btn-primary p-2"})
+										@Html.ActionLink("XML", "GetReport", new { name = student.Name, format = Format.XML }, new { @class = "btn btn-primary p-2"})
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
 				</tr>
 			}
 		</tbody>

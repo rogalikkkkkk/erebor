@@ -7,6 +7,7 @@ using BuisnessLogic.Services;
 using Newtonsoft.Json;
 using System.Xml.Serialization;
 using System.Text;
+using WebErebor.Serializers;
 
 namespace WebErebor.Controllers
 {
@@ -18,7 +19,13 @@ namespace WebErebor.Controllers
         private readonly IStudentRepository studentRepository;
         private readonly AttendanceReportService attendanceReportService;
 
-        public LectureController(ILectureRepository lectureRepository, ICourseRepository courseRepository, AttendanceReportService attendanceReportService, IAttendanceRepository attendanceRepository, IStudentRepository studentRepository)
+        public LectureController(
+            ILectureRepository lectureRepository,
+            ICourseRepository courseRepository,
+            AttendanceReportService attendanceReportService,
+            IAttendanceRepository attendanceRepository,
+            IStudentRepository studentRepository
+            )
         {
             this.lectureRepository = lectureRepository;
             this.courseRepository = courseRepository;
@@ -56,34 +63,16 @@ namespace WebErebor.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetReport(string title)
+        public IActionResult GetReport(string title, Format format)
         {
             Report<Student> report = attendanceReportService.generateReportByLecture(title);
+            var serializer = SerializerFactory.GetSerializer<Student>(format);
+            byte[] reportSerialized = serializer.Serialize(report.Data);
 
-            Random random = new Random();
-            string reportSerialize;
-            string fileName;
-
-            if (random.Next(0, 2) == 0)
+            return new FileContentResult(reportSerialized, "application/octet-stream")
             {
-                reportSerialize = JsonConvert.SerializeObject(report, Formatting.Indented);
-                fileName = "report.json";
-            }
-            else
-            {
-                XmlSerializer xml = new XmlSerializer(typeof(Report<Student>));
-
-                using (StringWriter textWriter = new StringWriter())
-                {
-                    xml.Serialize(textWriter, report);
-                    reportSerialize = textWriter.ToString();
-                }
-                fileName = "report.xml";
-            }
-            var reportFile = new FileContentResult(Encoding.Default.GetBytes(reportSerialize), "application/octet-stream");
-
-            reportFile.FileDownloadName = fileName;
-            return reportFile;
+                FileDownloadName = serializer.FileName("report")
+            };
         }
 
         [HttpGet]
@@ -103,14 +92,14 @@ namespace WebErebor.Controllers
             foreach (var student in students)
             {
                 if (attendances.FirstOrDefault(a => a.StudentId == student.Id) != null) continue;
-                
+
                 var attendance = new Attendance
                 {
                     StudentId = student.Id,
                     Student = student,
                     LectureId = lecture.Id
                 };
-                
+
                 attendances.Add(attendance);
             }
 

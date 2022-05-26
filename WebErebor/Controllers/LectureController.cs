@@ -59,10 +59,12 @@ namespace WebErebor.Controllers
 
             Random random = new Random();
             string reportSerialize;
+            string fileName;
 
             if (random.Next(0, 2) == 0)
             {
                 reportSerialize = JsonConvert.SerializeObject(report, Formatting.Indented);
+                fileName = "report.json";
             }
             else
             {
@@ -73,10 +75,11 @@ namespace WebErebor.Controllers
                     xml.Serialize(textWriter, report);
                     reportSerialize = textWriter.ToString();
                 }
+                fileName = "report.xml";
             }
             var reportFile = new FileContentResult(Encoding.Default.GetBytes(reportSerialize), "application/octet-stream");
 
-            reportFile.FileDownloadName = "report.txt";
+            reportFile.FileDownloadName = fileName;
             return reportFile;
         }
 

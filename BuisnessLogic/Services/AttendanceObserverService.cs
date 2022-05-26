@@ -1,50 +1,37 @@
 ﻿using BuisnessLogic.Models;
 using BuisnessLogic.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BuisnessLogic.Observer
 {
     public class AttendanceObserverService
     {
-        private IAttendanceRepository attendanceRepository;
-        private IAttendanceSubscriber attendanceSubscriber;
+        private readonly IAttendanceRepository attendanceRepository;
+        private readonly List<IAttendanceObserver> attendanceObservers;
 
-        public AttendanceObserverService(IAttendanceRepository repository, IAttendanceSubscriber subscriber)
+        public AttendanceObserverService(
+            IAttendanceRepository attendanceRepository,
+            List<IAttendanceObserver> attendanceObservers)
         {
-            attendanceRepository = repository;
-            attendanceSubscriber = subscriber;
+            this.attendanceRepository = attendanceRepository;
+            this.attendanceObservers = attendanceObservers;
         }
 
         public void onAttendance(Attendance attendance)
         {
-            var courseAttendance = attendanceRepository.getAllByStudent(attendance.StudentId).GroupBy(att => att.Lecture!.Course);
+            var courseAttendance = attendanceRepository
+                .getAllByStudent(attendance.StudentId)
+                .GroupBy(att => att.Lecture!.Course);
 
             foreach (var course in courseAttendance)
             {
-                if (checkAvgGrade(course.ToList())) {
-                    attendanceSubscriber.NotifyBySms(attendance.Student, attendance.Lecture.Course);
-                }
-
-                if (checkSkips(course.ToList())) {
-                    attendanceSubscriber.NotifyByEmail(attendance.Student, 
-                        attendance.Lecture.Course.Lector, 
-                        attendance.Lecture.Course);
-                }
+                foreach (var observer in attendanceObservers)
+                {
+                    if (observer.IsNeedNotify(course.ToList()))
+                    {
+                        observer.Notify(attendance);
+                    }
+                }             
             }
-        }
-
-        private bool checkAvgGrade(List<Attendance> attendances)
-        {
-            return attendances.Average(att => att.Grade) > 4;
-        }
-
-        private bool checkSkips(List<Attendance> attendances)
-        {
-            return attendances.Select(att => att.Attended).Count() < 3;
         }
     }
 }

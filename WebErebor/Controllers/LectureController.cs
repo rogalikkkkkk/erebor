@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Xml.Serialization;
 using System.Text;
 using WebErebor.Serializers;
+using BuisnessLogic.Observer;
 
 namespace WebErebor.Controllers
 {
@@ -18,13 +19,15 @@ namespace WebErebor.Controllers
         private readonly IAttendanceRepository attendanceRepository;
         private readonly IStudentRepository studentRepository;
         private readonly AttendanceReportService attendanceReportService;
+        private readonly AttendanceObserverService attendanceObserverService;
 
         public LectureController(
             ILectureRepository lectureRepository,
             ICourseRepository courseRepository,
             AttendanceReportService attendanceReportService,
             IAttendanceRepository attendanceRepository,
-            IStudentRepository studentRepository
+            IStudentRepository studentRepository,
+            AttendanceObserverService attendanceObserverService
             )
         {
             this.lectureRepository = lectureRepository;
@@ -32,6 +35,7 @@ namespace WebErebor.Controllers
             this.attendanceReportService = attendanceReportService;
             this.attendanceRepository = attendanceRepository;
             this.studentRepository = studentRepository;
+            this.attendanceObserverService = attendanceObserverService;
         }
 
         public IActionResult LectureView()
@@ -112,6 +116,7 @@ namespace WebErebor.Controllers
             foreach (var att in attList)
             {
                 attendanceRepository.Save(att);
+                attendanceObserverService.onAttendance(att);
             }
             return RedirectToAction("LectureView");
         }

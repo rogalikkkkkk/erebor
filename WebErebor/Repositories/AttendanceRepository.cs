@@ -22,7 +22,7 @@ public class AttendanceRepository : IAttendanceRepository
     public Attendance GetById(int id)
     {
         var attendance = _db.Attendances.FirstOrDefault(a => a.Id == id);
-        if (attendance == null)throw new Exception("По данному ID не было найдено записей в таблице посещений");
+        if (attendance == null) throw new Exception("По данному ID не было найдено записей в таблице посещений");
 
         return attendance;
     }
@@ -44,7 +44,11 @@ public class AttendanceRepository : IAttendanceRepository
     public List<Attendance> getAllByStudent(int studentId)
     {
         return _db.Attendances.Where(a => a.StudentId == studentId)
-            .Include(a => a.Lecture).Include(a => a.Student).ToList();
+            .Include(a => a.Student)
+            .Include(a => a.Lecture)
+                .Include(a => a.Lecture!.Course)
+                    .Include(a => a.Lecture!.Course!.Lector)
+            .ToList();
     }
 
     public List<Attendance> getAllByLecture(int lectureId)

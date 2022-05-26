@@ -2,6 +2,8 @@ using WebErebor.Application;
 using BuisnessLogic.Repositories;
 using WebErebor.Repositories;
 using BuisnessLogic.Services;
+using BuisnessLogic.Observer;
+using WebErebor.Observer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,26 +16,31 @@ builder.Services.AddScoped<ILectureRepository, LectureRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 builder.Services.AddScoped<ILectorRepository, LectorRepository>();
+
 builder.Services.AddScoped<AttendanceReportService, AttendanceReportService>();
 
+builder.Services.AddScoped<EmailAttendanceObserverImpl>();
+builder.Services.AddScoped<SmsAttendanceObserverImpl>();
+builder.Services.AddScoped<AttendanceObserverService>(a => new AttendanceObserverService(
+	a.GetRequiredService<IAttendanceRepository>(), new List<IAttendanceObserver> {
+		a.GetRequiredService<SmsAttendanceObserverImpl>(),
+		a.GetRequiredService<EmailAttendanceObserverImpl>(),
+	}));
+
 var app = builder.Build();
+
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(

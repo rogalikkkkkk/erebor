@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WebErebor.Application;
-using WebErebor.Models;
 using BuisnessLogic.Repositories;
 using BuisnessLogic.Models;
 using BuisnessLogic.Services;
@@ -86,17 +83,6 @@ namespace WebErebor.Controllers
 
             reportFile.FileDownloadName = fileName;
             return reportFile;
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

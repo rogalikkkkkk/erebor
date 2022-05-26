@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebErebor.Application;
-using WebErebor.Models;
 using BuisnessLogic.Repositories;
 using BuisnessLogic.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -45,7 +43,6 @@ namespace WebErebor.Controllers
         [HttpPost]
         public IActionResult LectureCreate(Lecture lecture)
         {
-            lecture.Course = courseRepository.GetById(lecture.Course.Id);
             lectureRepository.Save(lecture);
             return RedirectToAction("LectureView");
         }
@@ -53,8 +50,9 @@ namespace WebErebor.Controllers
         [HttpGet]
         public IActionResult LectureEdit(int id)
         {
+            var lecture = lectureRepository.GetById(id);
             ViewBag.Course = new SelectList(courseRepository.GetAll(), "Id", "Title");
-            return View("LectureCreate", lectureRepository.GetById(id));
+            return View("LectureCreate", lecture);
         }
 
         [HttpGet]
@@ -95,29 +93,29 @@ namespace WebErebor.Controllers
             return RedirectToAction("LectureView");
         }
 
+        [HttpGet]
         public IActionResult LectureAttendance(Lecture lecture)
         {
             var students = studentRepository.GetAll();
-            var attendance = attendanceRepository.getAllByLecture(lecture);
-            if (students.Count() != attendance.Count())
+            var attendances = attendanceRepository.getAllByLecture(lecture.Id);
+
+            if (students.Count != attendances.Count)
             {
                 foreach (var student in students)
                 {
-                    if (attendance.FirstOrDefault(a => a.Student.Id == student.Id) == null)
+                    if (attendances.FirstOrDefault(a => a.StudentId == student.Id) == null)
                     {
-                        var newAtt = new Attendance();
-                        newAtt.Student = student;
-                        newAtt.Lecture = lecture;
-                        newAtt.Attended = false;
-                        newAtt.Grade = 0;
-                        attendanceRepository.Save(newAtt);
+                        var attendance = new Attendance();
+                        attendance.Student = student;
+                        attendance.Lecture = lecture;
+                        attendances.Add(attendance);
                     }
                 }
-                attendance = attendanceRepository.getAllByLecture(lecture);
             }
-            ViewBag.Students = students;
-            return View("LectureAttendance", attendance);
+
+            return View("LectureAttendance", attendances);
         }
+
         [HttpPost]
         public IActionResult AttendanceCreate(List<Attendance> attList)
         {
@@ -126,18 +124,6 @@ namespace WebErebor.Controllers
                 attendanceRepository.Save(att);
             }
             return RedirectToAction("LectureView");
-        }
-
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

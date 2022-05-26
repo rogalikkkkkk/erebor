@@ -1,36 +1,35 @@
 ﻿@using BuisnessLogic.Models
 @model List<Course>;
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Курсы</h1>
-    <table class="table mt-4">
-  <thead class="thead-dark bg-primary text-light">
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Название</th>
-      <th scope="col"></th>
-       <th scope="col"></th>
+	<h1 class="display-4">Курсы</h1>
+	<table class="table mt-4">
+		<thead class="thead-dark bg-primary text-light">
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Название</th>
+				<th scope="col"></th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var course in Model)
+			{
+				<tr>
+					<th scope="row">@course.Id</th>
+					<td>@course.Title</td>
+					<td>@Html.ActionLink("Изменить", "CourseEdit", course)</td>
+					<td>@Html.ActionLink("Удалить", "CourseDelete", course)</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 
-    </tr>
-  </thead>
-  <tbody>
-      @foreach(var course in Model){
-       <tr>
-      <th scope="row">@course.Id</th>
-      <td>@course.Title</td>
-      <td>@Html.ActionLink("Изменить", "CourseEdit", course)</td>
-       <td>@Html.ActionLink("Удалить", "CourseDelete", course)</td>
-
-    </tr>
-      }
-  </tbody>
-</table>
-
-<div class="band-list text-light">
-    <a class="btn btn-outline-primary" asp-action="CourseCreate">Добавить новый курс</a>
- </div>
+	<div class="band-list text-light">
+		<a class="btn btn-outline-primary" asp-action="CourseCreate">Добавить новый курс</a>
+	</div>
 
 </div>

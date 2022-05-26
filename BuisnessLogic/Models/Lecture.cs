@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace BuisnessLogic.Models
 {
@@ -11,6 +8,9 @@ namespace BuisnessLogic.Models
         public int Id { get; set; }
         public string Title { get; set; } = null!;
         public DateTime Date { get; set; }
-        public Course Course { get; set; }
+
+        [ForeignKey("Cources")]
+        public int CourseId { get; set; }
+        public Course? Course { get; set; }
     }
 }

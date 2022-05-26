@@ -22,10 +22,7 @@ public class StudentRepository : IStudentRepository
     public Student GetById(int id)
     {
         var student = _db.Students.FirstOrDefault(s => s.Id == id);
-        if (student == null)
-        {
-            throw new Exception("По данному ID не было найдено записей в таблице студентов");
-        }
+        if (student == null) throw new Exception("По данному ID не было найдено записей в таблице студентов");
 
         return student;
     }
@@ -47,10 +44,7 @@ public class StudentRepository : IStudentRepository
     public Student getByName(string name)
     {
         var student = _db.Students.FirstOrDefault(s => s.Name == name);
-        if (student == null)
-        {
-            throw new Exception("По данному имени не было найдено записей в таблице студентов");
-        }
+        if (student == null) throw new Exception("По данному имени не было найдено записей в таблице студентов");
         return student;
     }
 }

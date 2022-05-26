@@ -22,10 +22,7 @@ public class CourseRepository : ICourseRepository
     public Course GetById(int id)
     {
         var course = _db.Cources.FirstOrDefault(c => c.Id == id);
-        if (course == null)
-        {
-            throw new Exception("По данному ID не было найдено записей в таблице курсов");
-        }
+        if (course == null) throw new Exception("По данному ID не было найдено записей в таблице курсов");
 
         return course;
     }

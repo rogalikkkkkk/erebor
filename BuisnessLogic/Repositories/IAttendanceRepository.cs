@@ -9,7 +9,7 @@ namespace BuisnessLogic.Repositories
 {
     public interface IAttendanceRepository : CrudRepository<Attendance>
     {
-        public List<Attendance> getAllByStudent(Student student);
-        public List<Attendance> getAllByLecture(Lecture lecture);
+        public List<Attendance> getAllByStudent(int studentId);
+        public List<Attendance> getAllByLecture(int lectureId);
     }
 }

@@ -21,19 +21,16 @@ public class LectorRepository : ILectorRepository
     public Lector GetById(int id)
     {
         var lector = _db.Lectors.FirstOrDefault(l => l.Id == id);
-        if (lector == null)
-        {
-            throw new Exception("По данному ID не было найдено записей в таблице лекторов");
-        }
+        if (lector == null) throw new Exception("По данному ID не было найдено записей в таблице лекторов");
 
-        return _db.Lectors.First(l => l.Id == id);
+        return lector;
     }
 
     public Lector Save(Lector entity)
     {
-        _db.Update(entity);
+        var lector = _db.Update(entity);
         _db.SaveChanges();
-        return _db.Lectors.First(l => l.Id == entity.Id);
+        return lector.Entity;
     }
 
     public void Delete(Lector entity)

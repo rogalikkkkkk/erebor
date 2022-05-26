@@ -1,33 +1,35 @@
 ﻿@using BuisnessLogic.Models
 @model Course;
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Курсы</h1>
-    @using (Html.BeginForm("CourseCreate", "Course", FormMethod.Post))
-{
-    @Html.HiddenFor(m => m.Id)
-    <div class="row g-3 align-items-center p-4">
-        <div class="col-3 "></div>
-            <div class="col-2 ">
-                <label for="inputTitle" class="col-form-label">Название курса</label>
-            </div>
-            <div class="col-3">
-                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @required  = "required"})
-            </div>
-    </div>
-    <div class="row g-3 align-items-center p-4">
-        <div class="col-3 "></div>
-            <div class="col-2 ">
-                <label for="inputLector" class="col-form-label">Преподаватель</label>
-            </div>
-            <div class="col-3">
-                @Html.DropDownListFor(m => m.Lector.Id, ViewBag.Lector as SelectList, new { @class = "form-select"})            
-            </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
-    }
+	<h1 class="display-4">Курсы</h1>
+	@using (Html.BeginForm("CourseCreate", "Course", FormMethod.Post))
+	{
+		@Html.HiddenFor(m => m.Id)
+		<div class="row g-3 align-items-center p-4">
+			<div class="col-3 "></div>
+			<div class="col-2 ">
+				<label for="inputTitle" class="col-form-label">Название курса</label>
+			</div>
+			<div class="col-3">
+				@Html.TextBoxFor(m => m.Title, new { @class = "form-control", @required  = "required"})
+			</div>
+		</div>
+
+		<div class="row g-3 align-items-center p-4">
+			<div class="col-3 "></div>
+			<div class="col-2 ">
+				<label for="inputLector" class="col-form-label">Преподаватель</label>
+			</div>
+			<div class="col-3">
+				@Html.DropDownListFor(m => m.LectorId, ViewBag.Lector as SelectList, new { @class = "form-select"})
+			</div>
+		</div>
+
+		<button type="submit" class="btn btn-primary">Сохранить</button>
+	}
 
 </div>

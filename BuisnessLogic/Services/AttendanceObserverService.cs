@@ -21,19 +21,20 @@ namespace BuisnessLogic.Observer
 
         public void onAttendance(Attendance attendance)
         {
-            var courseAttendance = attendanceRepository.getAllByStudent(attendance.Student).GroupBy(att => att.Lecture.Course);
+            var courseAttendance = attendanceRepository.getAllByStudent(attendance.StudentId).GroupBy(att => att.Lecture!.Course);
+
             foreach (var course in courseAttendance)
             {
                 if (checkAvgGrade(course.ToList())) {
                     attendanceSubscriber.NotifyBySms(attendance.Student, attendance.Lecture.Course);
                 }
+
                 if (checkSkips(course.ToList())) {
                     attendanceSubscriber.NotifyByEmail(attendance.Student, 
                         attendance.Lecture.Course.Lector, 
                         attendance.Lecture.Course);
                 }
             }
-
         }
 
         private bool checkAvgGrade(List<Attendance> attendances)

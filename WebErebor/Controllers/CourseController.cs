@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WebErebor.Application;
-using WebErebor.Models;
 using BuisnessLogic.Repositories;
 using BuisnessLogic.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -34,7 +31,7 @@ namespace WebErebor.Controllers
         [HttpPost]
         public IActionResult CourseCreate(Course course)
         {
-            course.Lector = lectorRepository.GetById(course.Lector.Id);
+            course.Lector = lectorRepository.GetById(course.LectorId);
             courseRepository.Save(course);
 
             return RedirectToAction("CourseView");
@@ -52,17 +49,6 @@ namespace WebErebor.Controllers
         {
             courseRepository.Delete(course);
             return RedirectToAction("CourseView");
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

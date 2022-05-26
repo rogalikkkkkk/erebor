@@ -24,9 +24,9 @@ namespace BuisnessLogic.Services
         public Report<Student> generateReportByLecture(string title)
         {
             var lecture = lectureRepository.getByTitle(title);
-            var attendances = attendanceRepository.getAllByLecture(lecture);
+            var attendances = attendanceRepository.getAllByLecture(lecture.Id);
             var report = from a in attendances
-                         select new ReportEntity<Student> { Entity = a.Student, Attanded = a.Attended, Grade = a.Grade };
+                         select new ReportEntity<Student> { Entity = a.Student!, Attanded = a.Attended, Grade = a.Grade };
 
             return new Report<Student> { Data = report.ToList() };
         }
@@ -34,10 +34,10 @@ namespace BuisnessLogic.Services
         public Report<Lecture> generateReportByStudent(string name)
         {
             var student = studentRepository.getByName(name);
-            var attendances = attendanceRepository.getAllByStudent(student);
+            var attendances = attendanceRepository.getAllByStudent(student.Id);
 
             var report = from a in attendances
-                         select new ReportEntity<Lecture> { Entity = a.Lecture, Attanded = a.Attended, Grade = a.Grade };
+                         select new ReportEntity<Lecture> { Entity = a.Lecture!, Attanded = a.Attended, Grade = a.Grade };
 
             return new Report<Lecture> { Data = report.ToList()};
         }

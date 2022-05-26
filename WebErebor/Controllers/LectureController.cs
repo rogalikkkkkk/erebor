@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebErebor.Application;
-using WebErebor.Models;
 using BuisnessLogic.Repositories;
 using BuisnessLogic.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,13 +14,17 @@ namespace WebErebor.Controllers
     {
         private readonly ILectureRepository lectureRepository;
         private readonly ICourseRepository courseRepository;
+        private readonly IAttendanceRepository attendanceRepository;
+        private readonly IStudentRepository studentRepository;
         private readonly AttendanceReportService attendanceReportService;
 
-        public LectureController(ILectureRepository lectureRepository, ICourseRepository courseRepository, AttendanceReportService attendanceReportService)
+        public LectureController(ILectureRepository lectureRepository, ICourseRepository courseRepository, AttendanceReportService attendanceReportService, IAttendanceRepository attendanceRepository, IStudentRepository studentRepository)
         {
             this.lectureRepository = lectureRepository;
             this.courseRepository = courseRepository;
             this.attendanceReportService = attendanceReportService;
+            this.attendanceRepository = attendanceRepository;
+            this.studentRepository = studentRepository;
         }
 
         public IActionResult LectureView()
@@ -41,7 +43,6 @@ namespace WebErebor.Controllers
         [HttpPost]
         public IActionResult LectureCreate(Lecture lecture)
         {
-            lecture.Course = courseRepository.GetById(lecture.Course.Id);
             lectureRepository.Save(lecture);
             return RedirectToAction("LectureView");
         }
@@ -49,8 +50,9 @@ namespace WebErebor.Controllers
         [HttpGet]
         public IActionResult LectureEdit(int id)
         {
+            var lecture = lectureRepository.GetById(id);
             ViewBag.Course = new SelectList(courseRepository.GetAll(), "Id", "Title");
-            return View("LectureCreate", lectureRepository.GetById(id));
+            return View("LectureCreate", lecture);
         }
 
         [HttpGet]
@@ -91,15 +93,37 @@ namespace WebErebor.Controllers
             return RedirectToAction("LectureView");
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult LectureAttendance(Lecture lecture)
         {
-            return View();
+            var students = studentRepository.GetAll();
+            var attendances = attendanceRepository.getAllByLecture(lecture.Id);
+
+            if (students.Count != attendances.Count)
+            {
+                foreach (var student in students)
+                {
+                    if (attendances.FirstOrDefault(a => a.StudentId == student.Id) == null)
+                    {
+                        var attendance = new Attendance();
+                        attendance.Student = student;
+                        attendance.Lecture = lecture;
+                        attendances.Add(attendance);
+                    }
+                }
+            }
+
+            return View("LectureAttendance", attendances);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult AttendanceCreate(List<Attendance> attList)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            foreach (var att in attList)
+            {
+                attendanceRepository.Save(att);
+            }
+            return RedirectToAction("LectureView");
         }
     }
 }

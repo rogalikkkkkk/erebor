@@ -4,7 +4,7 @@ using WebErebor.Application;
 
 namespace WebErebor.Repositories;
 
-public class CourseRepository: ICourseRepository
+public class CourseRepository : ICourseRepository
 {
     private readonly ApplicationDBContext _db;
 

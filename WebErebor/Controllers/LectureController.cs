@@ -16,13 +16,17 @@ namespace WebErebor.Controllers
     {
         private readonly ILectureRepository lectureRepository;
         private readonly ICourseRepository courseRepository;
+        private readonly IAttendanceRepository attendanceRepository;
+        private readonly IStudentRepository studentRepository;
         private readonly AttendanceReportService attendanceReportService;
 
-        public LectureController(ILectureRepository lectureRepository, ICourseRepository courseRepository, AttendanceReportService attendanceReportService)
+        public LectureController(ILectureRepository lectureRepository, ICourseRepository courseRepository, AttendanceReportService attendanceReportService, IAttendanceRepository attendanceRepository, IStudentRepository studentRepository)
         {
             this.lectureRepository = lectureRepository;
             this.courseRepository = courseRepository;
             this.attendanceReportService = attendanceReportService;
+            this.attendanceRepository = attendanceRepository;
+            this.studentRepository = studentRepository;
         }
 
         public IActionResult LectureView()
@@ -90,6 +94,40 @@ namespace WebErebor.Controllers
             lectureRepository.Delete(lecture);
             return RedirectToAction("LectureView");
         }
+
+        public IActionResult LectureAttendance(Lecture lecture)
+        {
+            var students = studentRepository.GetAll();
+            var attendance = attendanceRepository.getAllByLecture(lecture);
+            if (students.Count() != attendance.Count())
+            {
+                foreach (var student in students)
+                {
+                    if (attendance.FirstOrDefault(a => a.Student.Id == student.Id) == null)
+                    {
+                        var newAtt = new Attendance();
+                        newAtt.Student = student;
+                        newAtt.Lecture = lecture;
+                        newAtt.Attended = false;
+                        newAtt.Grade = 0;
+                        attendanceRepository.Save(newAtt);
+                    }
+                }
+                attendance = attendanceRepository.getAllByLecture(lecture);
+            }
+            ViewBag.Students = students;
+            return View("LectureAttendance", attendance);
+        }
+        [HttpPost]
+        public IActionResult AttendanceCreate(List<Attendance> attList)
+        {
+            foreach (var att in attList)
+            {
+                attendanceRepository.Save(att);
+            }
+            return RedirectToAction("LectureView");
+        }
+
 
         public IActionResult Privacy()
         {

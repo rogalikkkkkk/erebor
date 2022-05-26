@@ -1,43 +1,42 @@
-﻿using BuisnessLogic.Models;
-using BuisnessLogic.Repositories;
-using WebErebor.Application;
+﻿using Erebor.Models;
+using Erebor.Application;
 
-namespace WebErebor.Repositories;
-
-public class CourseRepository : ICourseRepository
+namespace Erebor.Repositories
 {
-    private readonly ApplicationDbContext _db;
-
-
-    public CourseRepository(ApplicationDbContext db)
+    public class CourseRepository : ICourseRepository
     {
-        _db = db;
-    }
+        private readonly ApplicationDbContext _db;
 
-    public List<Course> GetAll()
-    {
-        return _db.Courses.ToList();
-    }
+        public CourseRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
-    public Course GetById(int id)
-    {
-        var course = _db.Courses.FirstOrDefault(c => c.Id == id);
-        if (course == null) throw new Exception("По данному ID не было найдено записей в таблице курсов");
+        public List<Course> GetAll()
+        {
+            return _db.Courses.ToList();
+        }
 
-        return course;
-    }
+        public Course GetById(int id)
+        {
+            var course = _db.Courses.FirstOrDefault(c => c.Id == id);
+            if (course == null) throw new Exception("По данному ID не было найдено записей в таблице курсов");
 
-    public Course Save(Course entity)
-    {
-        var course = _db.Update(entity);
-        _db.SaveChanges();
-        return course.Entity;
-    }
+            return course;
+        }
 
-    public void Delete(Course entity)
-    {
-        if (!_db.Courses.Contains(entity)) return;
-        _db.Remove(entity);
-        _db.SaveChanges();
+        public Course Save(Course entity)
+        {
+            var course = _db.Update(entity);
+            _db.SaveChanges();
+            return course.Entity;
+        }
+
+        public void Delete(Course entity)
+        {
+            if (!_db.Courses.Contains(entity)) return;
+            _db.Remove(entity);
+            _db.SaveChanges();
+        }
     }
 }

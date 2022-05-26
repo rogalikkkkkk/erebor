@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BuisnessLogic.Models;
+namespace Erebor.Models;
 
 public class Course
 {

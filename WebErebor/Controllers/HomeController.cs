@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BuisnessLogic.Repositories;
-using BuisnessLogic.Models;
-using BuisnessLogic.Services;
-using Newtonsoft.Json;
-using System.Xml.Serialization;
-using System.Text;
-using WebErebor.Serializers;
+using Erebor.Repositories;
+using Erebor.Models;
+using Erebor.Services;
+using Erebor.Serializers;
 
-namespace WebErebor.Controllers
+namespace Erebor.Controllers
 {
     public class HomeController : Controller
     {

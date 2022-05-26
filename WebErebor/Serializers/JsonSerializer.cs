@@ -1,8 +1,8 @@
-﻿using BuisnessLogic.Models;
+﻿using Erebor.Models;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace WebErebor.Serializers
+namespace Erebor.Serializers
 {
 	public class JsonSerializer<T> : Serializer<T>
 	{

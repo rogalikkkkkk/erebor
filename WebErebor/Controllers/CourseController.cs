@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BuisnessLogic.Repositories;
-using BuisnessLogic.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Erebor.Models;
+using Erebor.Repositories;
 
-namespace WebErebor.Controllers
+namespace Erebor.Controllers
 {
     public class CourseController : Controller
     {

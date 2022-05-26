@@ -1,10 +1,10 @@
-﻿using BuisnessLogic.Models;
+﻿using Erebor.Models;
 
-namespace WebErebor.Serializers
+namespace Erebor.Serializers
 {
     public interface Serializer<T>
     {
-        public string FileName(String name);
+        public string FileName(string name);
         public byte[] Serialize(List<ReportEntity<T>> entity);
     }
 

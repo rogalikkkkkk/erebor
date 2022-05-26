@@ -1,9 +1,7 @@
-using WebErebor.Application;
-using BuisnessLogic.Repositories;
-using WebErebor.Repositories;
-using BuisnessLogic.Services;
-using BuisnessLogic.Observer;
-using WebErebor.Observer;
+using Erebor.Application;
+using Erebor.Repositories;
+using Erebor.Services;
+using Erebor.Observer;
 
 var builder = WebApplication.CreateBuilder(args);
 

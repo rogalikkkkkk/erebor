@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using BuisnessLogic.Repositories;
-using BuisnessLogic.Models;
+using Erebor.Repositories;
+using Erebor.Models;
 
-namespace WebErebor.Controllers
+namespace Erebor.Controllers
 {
     public class LectorController : Controller
     {

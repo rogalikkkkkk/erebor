@@ -1,8 +1,8 @@
-﻿using BuisnessLogic.Models;
+﻿using Erebor.Models;
 
-namespace BuisnessLogic.Repositories;
-
-public interface ILectorRepository: CrudRepository<Lector>
+namespace Erebor.Repositories
 {
-    
+    public interface ILectorRepository : CrudRepository<Lector>
+    {
+    }
 }

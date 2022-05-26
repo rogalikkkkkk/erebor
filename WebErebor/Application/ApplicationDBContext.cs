@@ -1,7 +1,7 @@
-﻿using BuisnessLogic.Models;
+﻿using Erebor.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebErebor.Application
+namespace Erebor.Application
 {
     public class ApplicationDbContext : DbContext
     {

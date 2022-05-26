@@ -1,50 +1,50 @@
-﻿using BuisnessLogic.Models;
-using BuisnessLogic.Repositories;
-using Microsoft.EntityFrameworkCore;
-using WebErebor.Application;
+﻿using Microsoft.EntityFrameworkCore;
+using Erebor.Models;
+using Erebor.Application;
 
-namespace WebErebor.Repositories;
-
-public class StudentRepository : IStudentRepository
+namespace Erebor.Repositories
 {
-    private readonly ApplicationDbContext _db;
-
-    public StudentRepository(ApplicationDbContext db)
+    public class StudentRepository : IStudentRepository
     {
-        _db = db;
-    }
+        private readonly ApplicationDbContext _db;
 
-    public List<Student> GetAll()
-    {
-        return _db.Students.ToList();
-    }
+        public StudentRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
-    public Student GetById(int id)
-    {
-        var student = _db.Students.FirstOrDefault(s => s.Id == id);
-        if (student == null) throw new Exception("По данному ID не было найдено записей в таблице студентов");
+        public List<Student> GetAll()
+        {
+            return _db.Students.ToList();
+        }
 
-        return student;
-    }
+        public Student GetById(int id)
+        {
+            var student = _db.Students.FirstOrDefault(s => s.Id == id);
+            if (student == null) throw new Exception("По данному ID не было найдено записей в таблице студентов");
 
-    public Student Save(Student entity)
-    {
-        var student = _db.Update(entity);
-        _db.SaveChanges();
-        return student.Entity;
-    }
+            return student;
+        }
 
-    public void Delete(Student entity)
-    {
-        if (!_db.Students.Contains(entity)) return;
-        _db.Remove(entity);
-        _db.SaveChanges();
-    }
+        public Student Save(Student entity)
+        {
+            var student = _db.Update(entity);
+            _db.SaveChanges();
+            return student.Entity;
+        }
 
-    public Student getByName(string name)
-    {
-        var student = _db.Students.FirstOrDefault(s => s.Name == name);
-        if (student == null) throw new Exception("По данному имени не было найдено записей в таблице студентов");
-        return student;
+        public void Delete(Student entity)
+        {
+            if (!_db.Students.Contains(entity)) return;
+            _db.Remove(entity);
+            _db.SaveChanges();
+        }
+
+        public Student getByName(string name)
+        {
+            var student = _db.Students.FirstOrDefault(s => s.Name == name);
+            if (student == null) throw new Exception("По данному имени не было найдено записей в таблице студентов");
+            return student;
+        }
     }
 }

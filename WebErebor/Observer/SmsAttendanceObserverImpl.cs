@@ -1,6 +1,4 @@
-﻿using BuisnessLogic.Observer;
-
-namespace WebErebor.Observer
+﻿namespace Erebor.Observer
 {
     public class SmsAttendanceObserverImpl : SmsAttendanceObserver
     {

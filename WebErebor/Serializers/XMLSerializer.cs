@@ -1,8 +1,8 @@
-﻿using BuisnessLogic.Models;
+﻿using Erebor.Models;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace WebErebor.Serializers
+namespace Erebor.Serializers
 {
 	public class XMLSerializer<T> : Serializer<T>
 	{

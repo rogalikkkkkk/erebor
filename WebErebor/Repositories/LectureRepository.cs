@@ -1,49 +1,49 @@
-﻿using BuisnessLogic.Models;
-using BuisnessLogic.Repositories;
-using WebErebor.Application;
+﻿using Erebor.Models;
+using Erebor.Application;
 
-namespace WebErebor.Repositories;
-
-public class LectureRepository : ILectureRepository
+namespace Erebor.Repositories
 {
-    private readonly ApplicationDbContext _db;
-
-    public LectureRepository(ApplicationDbContext db)
+    public class LectureRepository : ILectureRepository
     {
-        _db = db;
-    }
+        private readonly ApplicationDbContext _db;
 
-    public List<Lecture> GetAll()
-    {
-        return _db.Lectures.ToList();
-    }
+        public LectureRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
-    public Lecture GetById(int id)
-    {
-        var lecture = _db.Lectures.FirstOrDefault(l => l.Id == id);
-        if (lecture == null) throw new Exception("По данному ID не было найдено записей в таблице лекций");
-        return lecture;
-    }
+        public List<Lecture> GetAll()
+        {
+            return _db.Lectures.ToList();
+        }
 
-    public Lecture Save(Lecture entity)
-    {
-        var lecture = _db.Update(entity);
-        _db.SaveChanges();
-        return lecture.Entity;
-    }
+        public Lecture GetById(int id)
+        {
+            var lecture = _db.Lectures.FirstOrDefault(l => l.Id == id);
+            if (lecture == null) throw new Exception("По данному ID не было найдено записей в таблице лекций");
+            return lecture;
+        }
 
-    public void Delete(Lecture entity)
-    {
-        if (!_db.Lectures.Contains(entity)) return;
-        _db.Remove(entity);
-        _db.SaveChanges();
-    }
+        public Lecture Save(Lecture entity)
+        {
+            var lecture = _db.Update(entity);
+            _db.SaveChanges();
+            return lecture.Entity;
+        }
 
-    public Lecture getByTitle(string title)
-    {
-        var lecture = _db.Lectures.FirstOrDefault(l => l.Title == title);
-        if (lecture == null) throw new Exception("По данному названию не было найдено записей в таблице лекций");
+        public void Delete(Lecture entity)
+        {
+            if (!_db.Lectures.Contains(entity)) return;
+            _db.Remove(entity);
+            _db.SaveChanges();
+        }
 
-        return lecture;
+        public Lecture getByTitle(string title)
+        {
+            var lecture = _db.Lectures.FirstOrDefault(l => l.Title == title);
+            if (lecture == null) throw new Exception("По данному названию не было найдено записей в таблице лекций");
+
+            return lecture;
+        }
     }
 }

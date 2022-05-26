@@ -1,42 +1,42 @@
-﻿using BuisnessLogic.Models;
-using BuisnessLogic.Repositories;
-using WebErebor.Application;
+﻿using Erebor.Models;
+using Erebor.Application;
 
-namespace WebErebor.Repositories;
-
-public class LectorRepository : ILectorRepository
+namespace Erebor.Repositories
 {
-    private readonly ApplicationDbContext _db;
-
-    public LectorRepository(ApplicationDbContext db)
+    public class LectorRepository : ILectorRepository
     {
-        _db = db;
-    }
+        private readonly ApplicationDbContext _db;
 
-    public List<Lector> GetAll()
-    {
-        return _db.Lectors.ToList();
-    }
+        public LectorRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
-    public Lector GetById(int id)
-    {
-        var lector = _db.Lectors.FirstOrDefault(l => l.Id == id);
-        if (lector == null) throw new Exception("По данному ID не было найдено записей в таблице лекторов");
+        public List<Lector> GetAll()
+        {
+            return _db.Lectors.ToList();
+        }
 
-        return lector;
-    }
+        public Lector GetById(int id)
+        {
+            var lector = _db.Lectors.FirstOrDefault(l => l.Id == id);
+            if (lector == null) throw new Exception("По данному ID не было найдено записей в таблице лекторов");
 
-    public Lector Save(Lector entity)
-    {
-        var lector = _db.Update(entity);
-        _db.SaveChanges();
-        return lector.Entity;
-    }
+            return lector;
+        }
 
-    public void Delete(Lector entity)
-    {
-        if (!_db.Lectors.Contains(entity)) return;
-        _db.Remove(entity);
-        _db.SaveChanges();
+        public Lector Save(Lector entity)
+        {
+            var lector = _db.Update(entity);
+            _db.SaveChanges();
+            return lector.Entity;
+        }
+
+        public void Delete(Lector entity)
+        {
+            if (!_db.Lectors.Contains(entity)) return;
+            _db.Remove(entity);
+            _db.SaveChanges();
+        }
     }
 }

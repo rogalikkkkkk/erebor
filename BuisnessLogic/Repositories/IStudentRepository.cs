@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BuisnessLogic.Models;
+﻿using Erebor.Models;
 
-namespace BuisnessLogic.Repositories
+namespace Erebor.Repositories
 {
     public interface IStudentRepository : CrudRepository<Student>
     {

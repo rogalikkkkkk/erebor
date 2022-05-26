@@ -1,6 +1,6 @@
-﻿using BuisnessLogic.Models;
+﻿using Erebor.Models;
 
-namespace BuisnessLogic.Observer
+namespace Erebor.Observer
 {
 	public abstract class IAttendanceObserver
 	{

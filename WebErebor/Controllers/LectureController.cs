@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using BuisnessLogic.Repositories;
-using BuisnessLogic.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using BuisnessLogic.Services;
-using Newtonsoft.Json;
-using System.Xml.Serialization;
-using System.Text;
-using WebErebor.Serializers;
-using BuisnessLogic.Observer;
+using Erebor.Serializers;
+using Erebor.Models;
+using Erebor.Repositories;
+using Erebor.Services;
+using Erebor.Observer;
 
 namespace WebErebor.Controllers
 {

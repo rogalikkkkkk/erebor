@@ -1,7 +1,7 @@
-﻿using BuisnessLogic.Models;
-using BuisnessLogic.Repositories;
+﻿using Erebor.Models;
+using Erebor.Repositories;
 
-namespace BuisnessLogic.Observer
+namespace Erebor.Observer
 {
     public class AttendanceObserverService
     {

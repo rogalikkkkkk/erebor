@@ -1,4 +1,4 @@
-﻿namespace BuisnessLogic.Models
+﻿namespace Erebor.Models
 {
     public class Lector
     {

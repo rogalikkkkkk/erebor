@@ -7,9 +7,9 @@ namespace WebErebor.Repositories;
 
 public class AttendanceRepository : IAttendanceRepository
 {
-    private readonly ApplicationDBContext _db;
+    private readonly ApplicationDbContext _db;
 
-    public AttendanceRepository(ApplicationDBContext db)
+    public AttendanceRepository(ApplicationDbContext db)
     {
         _db = db;
     }

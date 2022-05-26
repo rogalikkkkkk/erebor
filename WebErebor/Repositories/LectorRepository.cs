@@ -6,9 +6,9 @@ namespace WebErebor.Repositories;
 
 public class LectorRepository : ILectorRepository
 {
-    private readonly ApplicationDBContext _db;
+    private readonly ApplicationDbContext _db;
 
-    public LectorRepository(ApplicationDBContext db)
+    public LectorRepository(ApplicationDbContext db)
     {
         _db = db;
     }

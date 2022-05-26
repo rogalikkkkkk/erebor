@@ -6,9 +6,9 @@ namespace WebErebor.Repositories;
 
 public class LectureRepository : ILectureRepository
 {
-    private readonly ApplicationDBContext _db;
+    private readonly ApplicationDbContext _db;
 
-    public LectureRepository(ApplicationDBContext db)
+    public LectureRepository(ApplicationDbContext db)
     {
         _db = db;
     }

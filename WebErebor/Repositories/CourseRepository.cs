@@ -6,22 +6,22 @@ namespace WebErebor.Repositories;
 
 public class CourseRepository : ICourseRepository
 {
-    private readonly ApplicationDBContext _db;
+    private readonly ApplicationDbContext _db;
 
 
-    public CourseRepository(ApplicationDBContext db)
+    public CourseRepository(ApplicationDbContext db)
     {
         _db = db;
     }
 
     public List<Course> GetAll()
     {
-        return _db.Cources.ToList();
+        return _db.Courses.ToList();
     }
 
     public Course GetById(int id)
     {
-        var course = _db.Cources.FirstOrDefault(c => c.Id == id);
+        var course = _db.Courses.FirstOrDefault(c => c.Id == id);
         if (course == null) throw new Exception("По данному ID не было найдено записей в таблице курсов");
 
         return course;
@@ -36,7 +36,7 @@ public class CourseRepository : ICourseRepository
 
     public void Delete(Course entity)
     {
-        if (!_db.Cources.Contains(entity)) return;
+        if (!_db.Courses.Contains(entity)) return;
         _db.Remove(entity);
         _db.SaveChanges();
     }

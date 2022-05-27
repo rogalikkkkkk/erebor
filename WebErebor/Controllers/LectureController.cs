@@ -6,7 +6,7 @@ using Erebor.Repositories;
 using Erebor.Services;
 using Erebor.Observer;
 
-namespace WebErebor.Controllers
+namespace Erebor.Controllers
 {
     public class LectureController : Controller
     {
